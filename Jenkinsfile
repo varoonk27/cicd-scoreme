@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'mvn'  // This should match the name you configured
+    }
     environment {
         SONARQUBE_SERVER = 'SonarQubeServer' // Define your SonarQube server name from Jenkins settings
         JACOCO_REPORT_PATH = '**/target/site/jacoco/jacoco.xml'
