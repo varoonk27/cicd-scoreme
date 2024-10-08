@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        maven 'mvn' 
+        maven 'mvn'
     }
     
     environment {
@@ -10,7 +10,7 @@ pipeline {
         JACOCO_REPORT_PATH = '**/target/site/jacoco/jacoco.xml'
         LIZARD_REPORT_PATH = 'lizard-report.txt'
         OWASP_REPORT_PATH = 'dependency-check-report.html'
-        BRANCH_NAME = "main" // Set the branch name to trigger the pipeline
+        BRANCH_NAME = 'main' // Set the branch name to trigger the pipeline
     }
 
     triggers {
@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == "main") {
+                    if (env.BRANCH_NAME == 'main') {
                         checkout scm
                     }
                 }
