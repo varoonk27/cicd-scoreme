@@ -62,6 +62,24 @@ pipeline {
             }
         }
 
+        stage('Install pip') {
+           steps {
+               script {
+                    sh 'sudo apt-get update && sudo apt-get install -y python3-pip'
+               }
+           }
+       }
+
+
+        stage('Install Lizard') {
+            steps {
+                script {
+                    // Install Lizard using pip
+                    sh 'pip install lizard'
+                }
+            }
+        }
+
         stage('Cyclomatic Complexity Analysis') {
             steps {
                 script {
@@ -108,16 +126,17 @@ pipeline {
             cleanWs() // Clean up workspace after the build
         }
 
-    //     success {
-    //         emailext subject: 'Build Successful: ${JOB_NAME} #${BUILD_NUMBER}',
-    //                  body: 'Good news! The build succeeded! Check the details at ${BUILD_URL}',
-    //                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    //     }
+        // Uncomment these sections if you want email notifications
+        // success {
+        //     emailext subject: 'Build Successful: ${JOB_NAME} #${BUILD_NUMBER}',
+        //              body: 'Good news! The build succeeded! Check the details at ${BUILD_URL}',
+        //              recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        // }
 
-    //     failure {
-    //         emailext subject: 'Build Failed: ${JOB_NAME} #${BUILD_NUMBER}',
-    //                  body: 'Unfortunately, the build failed. Check the details at ${BUILD_URL}',
-    //                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    //     }
+        // failure {
+        //     emailext subject: 'Build Failed: ${JOB_NAME} #${BUILD_NUMBER}',
+        //              body: 'Unfortunately, the build failed. Check the details at ${BUILD_URL}',
+        //              recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        // }
     }
 }
