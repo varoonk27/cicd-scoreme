@@ -66,6 +66,7 @@ pipeline {
            steps {
                script {
                     sh 'sudo apt-get install -y python3-pip'
+                    sh 'sudo apt install python3-venv'
                }
            }
        }
