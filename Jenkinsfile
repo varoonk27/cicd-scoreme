@@ -65,7 +65,7 @@ pipeline {
         stage('Install pip') {
            steps {
                script {
-                    sh 'apt-get install -y python3-pip'
+                    sh 'sudo apt-get install -y python3-pip'
                }
            }
        }
@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
                     // Install Lizard using pip
-                    sh 'pip install lizard'
+                    sh 'sudo pip3 install lizard'
                 }
             }
         }
