@@ -45,13 +45,6 @@
             <version>3.9.1.2184</version>
         </dependency>
 
-        <!-- OWASP Dependency Check -->
-        <dependency>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>9.2.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -78,20 +71,6 @@
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- OWASP Dependency Check Plugin -->
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>9.2.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
