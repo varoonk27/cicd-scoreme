@@ -108,7 +108,7 @@ pipeline {
         //         }
         //     }
         // }
-        stage('OWASP Dependency-Check Vulnerabilities') {
+        /*stage('OWASP Dependency-Check Vulnerabilities') {
            steps {
              dependencyCheck additionalArguments: ''' 
                          -o './'
@@ -118,8 +118,13 @@ pipeline {
             
              dependencyCheckPublisher pattern: 'dependency-check-report.xml'
            }
+         }*/
+         stage('OWASP Dependency Check') {
+            steps {
+                   dependencyCheck additionalArguments: '--scan ./   ', odcInstallation: 'DP'
+                   dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
          }
-
         // stage('Quality Gate Check') {
         //     steps {
         //         script {
