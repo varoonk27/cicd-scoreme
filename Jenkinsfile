@@ -62,13 +62,13 @@ pipeline {
             }
         }
 
-        stage('Install pip') {
-           steps {
-               script {
-                    sh 'apt-get update && sudo apt-get install -y python3-pip'
-               }
-           }
-       }
+       //  stage('Install pip') {
+       //     steps {
+       //         script {
+       //              sh 'apt-get install -y python3-pip'
+       //         }
+       //     }
+       // }
 
 
         stage('Install Lizard') {
