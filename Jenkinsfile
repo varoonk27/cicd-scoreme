@@ -108,16 +108,16 @@ pipeline {
             cleanWs() // Clean up workspace after the build
         }
 
-        success {
-            emailext subject: 'Build Successful: ${JOB_NAME} #${BUILD_NUMBER}',
-                     body: 'Good news! The build succeeded! Check the details at ${BUILD_URL}',
-                     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-        }
+    //     success {
+    //         emailext subject: 'Build Successful: ${JOB_NAME} #${BUILD_NUMBER}',
+    //                  body: 'Good news! The build succeeded! Check the details at ${BUILD_URL}',
+    //                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    //     }
 
-        failure {
-            emailext subject: 'Build Failed: ${JOB_NAME} #${BUILD_NUMBER}',
-                     body: 'Unfortunately, the build failed. Check the details at ${BUILD_URL}',
-                     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-        }
-    }
+    //     failure {
+    //         emailext subject: 'Build Failed: ${JOB_NAME} #${BUILD_NUMBER}',
+    //                  body: 'Unfortunately, the build failed. Check the details at ${BUILD_URL}',
+    //                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    //     }
+    // }
 }
