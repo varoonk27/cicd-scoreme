@@ -71,14 +71,17 @@ pipeline {
        }
 
 
-        stage('Install Lizard') {
+        stage('Setup Virtual Environment') {
             steps {
                 script {
-                    // Install Lizard using pip
-                    sh 'pip3 install lizard'
+                    // Create a virtual environment and install lizard
+                    sh '''
+                        python3 -m venv venv
+                        source venv/bin/activate
+                        pip3 install lizard
+                    '''
                 }
             }
-        }
 
         stage('Cyclomatic Complexity Analysis') {
             steps {
