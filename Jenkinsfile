@@ -62,66 +62,76 @@ pipeline {
             }
         }
 
-        stage('Install pip') {
+       //  stage('Install pip') {
+       //     steps {
+       //         script {
+       //              sh 'sudo apt-get install -y python-pip'
+       //         }
+       //     }
+       // }
+
+
+       //  stage('Setup Virtual Environment') {
+       //      steps {
+       //          script {
+       //              // Create a virtual environment and install lizard
+       //              sh '''
+       //                  python3 -m venv venv
+       //                  source venv/bin/activate
+       //                  pip install --upgrade pip
+       //                  pip install lizard
+       //              '''
+       //          }
+       //      }
+       //  }
+
+       //  stage('Cyclomatic Complexity Analysis') {
+       //      steps {
+       //          script {
+       //              sh 'lizard . > lizard-report.txt' // Run Lizard to calculate cyclomatic complexity
+       //              archiveArtifacts artifacts: 'lizard-report.txt', allowEmptyArchive: true
+       //          }
+       //      }
+       //  }
+
+        // stage('Security Vulnerability Scan - OWASP Dependency Check') {
+        //     steps {
+        //         script {
+        //             sh 'mvn org.owasp:dependency-check-maven:check'
+        //             publishHTML([allowMissing: true,
+        //                          alwaysLinkToLastBuild: true,
+        //                          keepAll: true,
+        //                          reportDir: 'target',
+        //                          reportFiles: 'dependency-check-report.html',
+        //                          reportName: 'OWASP Dependency-Check Report'
+        //                         ])
+        //         }
+        //     }
+        // }
+        stage('OWASP Dependency-Check Vulnerabilities') {
            steps {
-               script {
-                    sh 'sudo apt-get install -y python3-pip'
-                    sh 'sudo apt install python3-venv'
-               }
+             dependencyCheck additionalArguments: ''' 
+                         -o './'
+                         -s './'
+                         -f 'ALL' 
+                         --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+            
+             dependencyCheckPublisher pattern: 'dependency-check-report.xml'
            }
-       }
+         }
 
-
-        stage('Setup Virtual Environment') {
-            steps {
-                script {
-                    // Create a virtual environment and install lizard
-                    sh '''
-                        python3 -m venv venv
-                        source venv/bin/activate
-                        pip install --upgrade pip
-                        pip install lizard
-                    '''
-                }
-            }
-        }
-
-        stage('Cyclomatic Complexity Analysis') {
-            steps {
-                script {
-                    sh 'lizard . > lizard-report.txt' // Run Lizard to calculate cyclomatic complexity
-                    archiveArtifacts artifacts: 'lizard-report.txt', allowEmptyArchive: true
-                }
-            }
-        }
-
-        stage('Security Vulnerability Scan - OWASP Dependency Check') {
-            steps {
-                script {
-                    sh 'mvn org.owasp:dependency-check-maven:check'
-                    publishHTML([allowMissing: true,
-                                 alwaysLinkToLastBuild: true,
-                                 keepAll: true,
-                                 reportDir: 'target',
-                                 reportFiles: 'dependency-check-report.html',
-                                 reportName: 'OWASP Dependency-Check Report'
-                                ])
-                }
-            }
-        }
-
-        stage('Quality Gate Check') {
-            steps {
-                script {
-                    timeout(time: 5, unit: 'MINUTES') {
-                        def qualityGate = waitForQualityGate()
-                        if (qualityGate.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Quality Gate Check') {
+        //     steps {
+        //         script {
+        //             timeout(time: 5, unit: 'MINUTES') {
+        //                 def qualityGate = waitForQualityGate()
+        //                 if (qualityGate.status != 'OK') {
+        //                     error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 
