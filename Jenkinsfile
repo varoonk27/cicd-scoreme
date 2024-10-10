@@ -119,5 +119,5 @@ pipeline {
     //                  body: 'Unfortunately, the build failed. Check the details at ${BUILD_URL}',
     //                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     //     }
-    // }
+    }
 }
