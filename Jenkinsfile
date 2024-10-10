@@ -78,10 +78,12 @@ pipeline {
                     sh '''
                         python3 -m venv venv
                         source venv/bin/activate
-                        pip3 install lizard
+                        pip install --upgrade pip
+                        pip install lizard
                     '''
                 }
             }
+        }
 
         stage('Cyclomatic Complexity Analysis') {
             steps {
