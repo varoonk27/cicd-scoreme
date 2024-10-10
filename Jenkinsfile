@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
                     // Install Lizard using pip
-                    sh 'sudo pip3 install lizard'
+                    sh 'pip3 install lizard'
                 }
             }
         }
